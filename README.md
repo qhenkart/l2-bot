@@ -56,9 +56,9 @@ A Mac is required to run these scripts, although set-up is certainly possible on
   2. *quests* : runs the main quest line
   3. *weeklys* : runs weeklys and daily quests
   4. *sub* : runs sub-quests (you must reset counts yourself)
-  4. *dungeons* : runs temple and summoning dungeon
+  5. *dungeons* : runs temple and summoning dungeon
   The process will end once the script is complete
-
+ex. `go run main.go --script grind`
 
 
 # Contributions

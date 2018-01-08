@@ -1,7 +1,7 @@
 # L2 Revolution Bot CLI Tool
 
 ### Purpose
-Lineage2 Revolution is a great game, but the game mechanics can be a bit repetitive and boring. Everyday we are forced to star at our screens watching our character auto-battle for 1-2 hours before we actually get to play. Skipping the boring stuff seriously nerfs the character. This app was created to automate the boring aspects so when you wake up, you can get right to the fun stuff
+Lineage2 Revolution is a great game, but the game mechanics can be a bit repetitive and boring. Everyday we are forced to stare at our screens watching our character auto-battle for 1-2 hours before we actually get to play. Skipping the boring stuff seriously nerfs the character. This app was created to automate the boring aspects so when you wake up, you can get right to the fun stuff
 
 ### Risk
 Using Macros, third party programs, emulators all violates the ToS, and while NetMarble is clearly not enforcing these things, using an app like this would be a bannable offense. *That being said*, this is a very low risk app to run. This tool does not make API calls, there is no hacking or package sniffing. It merely replicates user interaction with the UI using the SikuliX UI tool. From an administrative perspective, there is no way to detect the difference between a user pressing a button or this program doing it for you. However, it would be prudent not to talk about using this tool.

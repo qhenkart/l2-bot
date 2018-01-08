@@ -48,11 +48,11 @@ A Mac is required to run these scripts, although set-up is certainly possible on
 1. Midnight Cron job:
   To run the Cron job, open up your terminal and run
   `go run main.go`
-  The process will run in the background until midnight occurs. It will then open up Nox App Player and run the scripts. You cannot use your computer while the scripts are running since it replicates human behavior.
+  The process will run in the background until midnight occurs. It will then open up Nox App Player and run the scripts. You cannot use your computer while the scripts are running since it replicates human behavior. If you restart your computer, you must run this again.
 
 2. Individual script:
   Utilize the --script flag. Accepted options are:
-  1. *grind* : kills mobs (but makes disconnections impossible)
+  1. *grind* : kills mobs (but makes disconnections impossible) — Can be used for any situation where you want to auto-battle and walk away without worrying about disconnections
   2. *quests* : runs the main quest line
   3. *weeklys* : runs weeklys and daily quests
   4. *sub* : runs sub-quests (you must reset counts yourself)
@@ -67,5 +67,7 @@ A Mac is required to run these scripts, although set-up is certainly possible on
 1. To determine if weeklys are finished or not, it looks for the [Weeklys] icon on the left sidebar. This can sometimes be hidden under the Daily Quests list which would cause Weeklys to not be run. We need to find another way to determine if there are any weeklys left
 
 2. There are 2 or 3 methods that make use of Regions in SikuliX. Regions are less favorable than what is mostly used which is app.Window(). However in these cases, using a Region is required to avoid SikuliX confusing one image with another. This might be improved by changing the minTargetSize. Regions might cause failures on various screen sizes
+
+3. Would be nice to have some response to getting PKed. Currently nothing happens and the script will finish. It might be nice to add a configuration option that allows people to choose Safe Mode or War mode. Safe mode could mean that the player should revive and continue the script. War mode could mean to end the script upon death, or change channels
 
 Please make pull requests to contribute. You can fork as well but I am 100% open to feature requests and different avenues forward

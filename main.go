@@ -2,7 +2,8 @@ package main
 
 import (
 	"flag"
-	"fmt"
+	"io"
+	"log"
 	"os"
 	"os/signal"
 	"syscall"
@@ -14,11 +15,11 @@ import (
 var notificationLimit = 0
 
 func initCron() {
-	fmt.Println("initializing cron")
+	log.Println("initializing cron")
 	c := cron.New()
 	//runs everyday at midnight
-	c.AddFunc("5 15 * * * *", func() {
-		fmt.Println("starting cron job")
+	c.AddFunc("0 0 15 * * *", func() {
+		log.Println("starting cron job")
 		bot.Run()
 	})
 	c.Start()
@@ -33,13 +34,20 @@ func Wait() os.Signal {
 }
 
 func main() {
+	logFile, err := os.OpenFile("log.txt", os.O_APPEND|os.O_WRONLY|os.O_CREATE, 0600)
+	if err != nil {
+		panic(err)
+	}
+	mw := io.MultiWriter(os.Stdout, logFile)
+	log.SetOutput(mw)
+
 	script := flag.String("script", "", "run an individual script")
 	flag.Parse()
-	fmt.Println("script selected: ", *script)
+	log.Println("script selected: ", *script)
 	if *script == "" {
 		defer func() {
 			if rec := recover(); rec != nil {
-				fmt.Printf("Panic-Recovery recovery %s", rec)
+				log.Printf("Panic-Recovery recovery %s", rec)
 				bot.Run()
 			}
 		}()
@@ -47,7 +55,7 @@ func main() {
 	} else {
 		defer func() {
 			if rec := recover(); rec != nil {
-				fmt.Printf("Panic-Recovery recovery %s", rec)
+				log.Printf("Panic-Recovery recovery %s", rec)
 				bot.Script(*script)
 			}
 		}()

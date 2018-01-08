@@ -1,7 +1,7 @@
 package notifications
 
 import (
-	"fmt"
+	"log"
 	"net/http"
 	"net/url"
 	"strconv"
@@ -13,10 +13,10 @@ var notificationLimit = 0
 // Send ...
 func Send(message string) {
 	if notificationLimit > 100 {
-		fmt.Println("failed to send notification, limit reached: ", message)
+		log.Println("failed to send notification, limit reached: ", message)
 	}
 	notificationLimit++
-	fmt.Println("sending notification: ", message)
+	log.Println("sending notification: ", message)
 	form := url.Values{}
 	form.Add("token", "a53g47tydze4fm4wnndjtutkdk8fs6")
 	form.Add("message", message)
@@ -25,7 +25,7 @@ func Send(message string) {
 	client := &http.Client{}
 	r, err := http.NewRequest("POST", "https://api.pushover.net/1/messages.json", strings.NewReader(form.Encode()))
 	if err != nil {
-		fmt.Println(err)
+		log.Println(err)
 		return
 	}
 
@@ -34,9 +34,9 @@ func Send(message string) {
 
 	resp, err := client.Do(r)
 	if err != nil {
-		fmt.Println(err)
+		log.Println(err)
 		return
 	}
-	fmt.Println(resp.Status)
+	log.Println(resp.Status)
 
 }

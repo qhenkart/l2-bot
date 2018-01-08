@@ -2,6 +2,7 @@ package bot
 
 import (
 	"fmt"
+	"log"
 
 	"github.com/qhenkart/l2bot/bash"
 	"github.com/qhenkart/l2bot/notifications"
@@ -32,7 +33,7 @@ func runScript(command string, retry int) bool {
 	notifications.Send("starting " + command)
 	err := bash.RunProgram(command)
 	if err != nil {
-		fmt.Println("an error occured, retrying ", retry, err)
+		log.Println("an error occured, retrying ", retry, err)
 		retry++
 		if retry > 3 {
 			notifications.Send(err.Error())
@@ -59,7 +60,7 @@ func Run() {
 
 	notifications.Send(fmt.Sprintf("something happened. Rerunning scripts, todos: %+v", todos))
 	if err := closeNox(); err != nil {
-		fmt.Println("unable to close nox ", err)
+		log.Println("unable to close nox ", err)
 	}
 	Run()
 }
@@ -68,13 +69,13 @@ func Run() {
 func Script(script string) {
 	path, ok := scripts[script]
 	if !ok {
-		fmt.Printf("\n\nerror, unable to run script. \nOptions: %+v\n\n", scripts)
+		log.Printf("\n\nerror, unable to run script. \nOptions: %+v\n\n", scripts)
 	}
 	startup()
 	if success := runScript(path, 0); !success {
 		notifications.Send(fmt.Sprintf("something happened. Rerunning script: %s", path))
 		if err := closeNox(); err != nil {
-			fmt.Println("unable to close nox ", err)
+			log.Println("unable to close nox ", err)
 		}
 	}
 }

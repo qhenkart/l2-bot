@@ -1,0 +1,126 @@
+
+<html>
+   <head>
+      <style type="text/css">
+         .sikuli-code {
+            font-size: 20px;
+            font-family: "Osaka-mono", Monospace;
+            line-height: 1.5em;
+            display:table-cell;
+            white-space: pre-wrap;       /* css-3 */
+            white-space: -moz-pre-wrap !important;  /* Mozilla, since 1999 */
+            white-space: -pre-wrap;      /* Opera 4-6 */
+            white-space: -o-pre-wrap;    /* Opera 7 */
+            word-wrap: break-word;       /* Internet Explorer 5.5+ */
+            width: 99%;   /* remove horizontal scroll-bar when viewing in IE7 */
+         }
+         .sikuli-code img {
+            vertical-align: middle;
+            margin: 2px;
+            border: 1px solid #ccc;
+            padding: 2px;
+            -moz-border-radius: 5px;
+            -webkit-border-radius: 5px;
+            -moz-box-shadow: 1px 1px 1px gray;
+            -webkit-box-shadow: 1px 1px 2px gray;
+         }
+         .kw {
+            color: blue;
+         }
+         .skw {
+            color: rgb(63, 127, 127);
+         }
+
+         .str {
+            color: rgb(128, 0, 0);
+         }
+
+         .dig {
+            color: rgb(128, 64, 0);
+         }
+
+         .cmt {
+            color: rgb(200, 0, 200);
+         }
+
+         h2 {
+            display: inline;
+            font-weight: normal;
+         }
+
+         .info {
+            border-bottom: 1px solid #ddd;
+            padding-bottom: 5px;
+            margin-bottom: 20px;
+            display: none;
+         }
+
+         a {
+            color: #9D2900;
+         }
+
+         body {
+            font-family: "Trebuchet MS", Arial, Sans-Serif;
+         }
+
+      </style>
+   </head>
+<body>
+<div class="info">
+<h2>quests.sikuli</h2> <a href="quests.zip">(Download this script)</a>
+</div>
+<pre class="sikuli-code">
+<span class="kw">from</span> sikuli <span class="kw">import</span> *
+
+<span class="kw">import</span> lib
+
+quest = Region(<span class="dig">49</span>,<span class="dig">266</span>,<span class="dig">272</span>,<span class="dig">112</span>)
+
+reward = Region(<span class="dig">425</span>,<span class="dig">631</span>,<span class="dig">530</span>,<span class="dig">75</span>)
+
+
+cleared = Region(<span class="dig">1025</span>,<span class="dig">658</span>,<span class="dig">199</span>,<span class="dig">66</span>)
+
+<span class="kw">def</span> runQuest():
+    c = <span class="dig">1</span>
+    <span class="kw">while</span> <span class="kw">not</span> reward.exists(<img src="1514880563893.png" />):
+        <span class="kw">print</span>(<span class="str">"in loop"</span> + str(c))
+        c = c + <span class="dig">1</span>
+        lib.checkOK()
+        lib.checkSkip()
+        <span class="kw">if</span> quest.exists(<img src="1514882132041.png" />):
+            <span class="kw">print</span>(<span class="str">"clicking to accept quest"</span>)
+            quest.<span class="skw">click</span>(<img src="1514867316210.png" />)
+            lib.checkSkip()
+
+        lib.checkWalk()
+        <span class="kw">print</span>(<span class="str">"checking accept"</span>)
+        <span class="kw">if</span> exists(<img src="1514880148209.png" />):
+            <span class="skw">click</span>(<img src="1514880160477.png" />)
+            <span class="kw">print</span>(<span class="str">"accepting quest"</span>)
+        lib.checkSkip()
+
+    <span class="kw">return</span>;
+
+
+<span class="kw">def</span> run():
+    <span class="kw">if</span> quest.exists(<img src="1514882132041.png" />):
+        <span class="kw">print</span>(<span class="str">"clicking to accept quest"</span>)
+        quest.<span class="skw">click</span>(<img src="1514867316210.png" />)
+        lib.checkSkip()
+        <span class="cmt">#loops until claim reward is seen</span>
+        runQuest()
+
+    <span class="cmt">#finish quest           </span>
+    <span class="kw">if</span> reward.exists(<img src="1514880563893.png" />):
+        <span class="kw">print</span>(<span class="str">"claiming reward"</span>)
+        reward.<span class="skw">click</span>(<img src="1514880575821.png" />)
+    <span class="cmt">#story progression</span>
+    <span class="kw">if</span> cleared.exists(<img src="1514886419623.png" />):
+        <span class="kw">print</span>(<span class="str">"story complete"</span>)
+        cleared.<span class="skw">click</span>(<img src="1514886419623.png" />)
+
+    <span class="kw">return</span>;
+</pre>
+</body>
+</html>

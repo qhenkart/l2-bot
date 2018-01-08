@@ -1,0 +1,128 @@
+
+<html>
+   <head>
+      <style type="text/css">
+         .sikuli-code {
+            font-size: 20px;
+            font-family: "Osaka-mono", Monospace;
+            line-height: 1.5em;
+            display:table-cell;
+            white-space: pre-wrap;       /* css-3 */
+            white-space: -moz-pre-wrap !important;  /* Mozilla, since 1999 */
+            white-space: -pre-wrap;      /* Opera 4-6 */
+            white-space: -o-pre-wrap;    /* Opera 7 */
+            word-wrap: break-word;       /* Internet Explorer 5.5+ */
+            width: 99%;   /* remove horizontal scroll-bar when viewing in IE7 */
+         }
+         .sikuli-code img {
+            vertical-align: middle;
+            margin: 2px;
+            border: 1px solid #ccc;
+            padding: 2px;
+            -moz-border-radius: 5px;
+            -webkit-border-radius: 5px;
+            -moz-box-shadow: 1px 1px 1px gray;
+            -webkit-box-shadow: 1px 1px 2px gray;
+         }
+         .kw {
+            color: blue;
+         }
+         .skw {
+            color: rgb(63, 127, 127);
+         }
+
+         .str {
+            color: rgb(128, 0, 0);
+         }
+
+         .dig {
+            color: rgb(128, 64, 0);
+         }
+
+         .cmt {
+            color: rgb(200, 0, 200);
+         }
+
+         h2 {
+            display: inline;
+            font-weight: normal;
+         }
+
+         .info {
+            border-bottom: 1px solid #ddd;
+            padding-bottom: 5px;
+            margin-bottom: 20px;
+            display: none;
+         }
+
+         a {
+            color: #9D2900;
+         }
+
+         body {
+            font-family: "Trebuchet MS", Arial, Sans-Serif;
+         }
+
+      </style>
+   </head>
+<body>
+<div class="info">
+<h2>lib.sikuli</h2> <a href="lib.zip">(Download this script)</a>
+</div>
+<pre class="sikuli-code">
+<span class="kw">from</span> sikuli <span class="kw">import</span> *
+
+<span class="kw">def</span> reset():
+    nox = App.open(<span class="str">"Nox App Player"</span>)
+    <span class="kw">with</span> Region(nox.window()):
+        <span class="kw">if</span> exists(<img src="1515048421156.png" />):
+            <span class="skw">click</span>(<img src="1515048428134.png" />)
+        <span class="kw">return</span>;
+
+<span class="kw">def</span> checkSkip():
+    nox = App.open(<span class="str">"Nox App Player"</span>)
+    <span class="kw">with</span> Region(nox.window()):
+        <span class="kw">print</span>(<span class="str">"checking skip"</span>)
+        <span class="kw">if</span> exists(<img src="1514890247176.png" />):
+            <span class="kw">print</span>(<span class="str">"skip exists, clicking"</span>)
+            <span class="skw">click</span>(<img src="1514890255615.png" />)
+        <span class="kw">return</span>;
+
+<span class="kw">def</span> checkOK():
+    nox = App.open(<span class="str">"Nox App Player"</span>)
+    <span class="kw">with</span> Region(nox.window()):
+        <span class="kw">print</span>(<span class="str">"check ok"</span>)
+        <span class="kw">if</span> exists(<img src="1514904011028.png" />):
+            <span class="kw">print</span>(<span class="str">"hitting ok"</span>)
+            <span class="skw">click</span>(<img src="1514904019510.png" />)
+        <span class="kw">if</span> exists(<img src="1514904513357.png" />):
+            <span class="kw">print</span>(<span class="str">"connect now"</span>)
+            r.<span class="skw">click</span>(<img src="1514904513357-1.png" />)
+
+        <span class="kw">return</span>;
+
+<span class="kw">def</span> checkWalk():
+    nox = App.open(<span class="str">"Nox App Player"</span>)
+    <span class="kw">with</span> Region(nox.window()):
+        <span class="kw">print</span>(<span class="str">"checking walk"</span>)
+        <span class="kw">if</span> exists(<img src="1514879730198.png" />):
+            <span class="kw">print</span>(<span class="str">"walk found"</span>)
+            <span class="skw">click</span>(<img src="1514879742678.png" />)
+        <span class="kw">return</span>;
+
+<span class="kw">def</span> login():
+    nox = App.open(<span class="str">"Nox App Player"</span>)
+    <span class="kw">with</span> Region(nox.window()):
+        <span class="kw">print</span>(<span class="str">"checking login"</span>)
+        <span class="kw">if</span> exists(<img src="1515077108294.png" />):
+            <span class="skw">popup</span>(<span class="str">"fail"</span>)
+        <span class="kw">if</span> exists(<img src="1514904310014.png" />):
+            <span class="kw">print</span>(<span class="str">"tap to start"</span>)
+            <span class="skw">click</span>(<img src="1514904310014.png" />)
+            <span class="skw">wait</span>(<img src="1514904411742.png" />)
+            <span class="kw">print</span>(<span class="str">"play"</span>)
+            <span class="skw">click</span>(<img src="1514904411742.png" />)
+            <span class="skw">wait</span>(<span class="dig">20</span>)
+</pre>
+</body>
+</html>

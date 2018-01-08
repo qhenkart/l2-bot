@@ -1,8 +1,5 @@
 # L2 Revolution Bot CLI Tool
 
-This is an active repo, however I do not play the game anymore so the SikuliX scripts are not active. Contributions are welcome
-
-
 ### Purpose
 Lineage2 Revolution is a great game, but the game mechanics can be a bit repetitive and boring. Everyday we are forced to star at our screens watching our character auto-battle for 1-2 hours before we actually get to play. Skipping the boring stuff seriously nerfs the character. This app was created to automate the boring aspects so when you wake up, you can get right to the fun stuff
 

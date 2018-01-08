@@ -1,6 +1,7 @@
 package bot
 
 import (
+	"context"
 	"log"
 	"os"
 	"os/exec"
@@ -10,7 +11,10 @@ import (
 	"github.com/qhenkart/l2bot/notifications"
 )
 
-func startup() {
+// startup manages starting the Nox App Player via bash
+func startup(ctx context.Context) {
+	n := notifications.Context(ctx)
+
 	log.Println("opening nox")
 	var openErr error
 	for i := 0; i < 4; i++ {
@@ -21,7 +25,7 @@ func startup() {
 
 	if !isOpen() {
 		log.Println("failed to open nox")
-		notifications.Send(openErr.Error())
+		n.Send(openErr.Error())
 		os.Exit(1)
 	}
 
@@ -30,6 +34,7 @@ func startup() {
 	time.Sleep(30 * time.Second)
 }
 
+// isOpen returns true if nox player is currently open and false if it is not
 func isOpen() bool {
 	if _, err := exec.Command("bash", "-c", "ps cax | grep Nox").Output(); err != nil {
 		log.Println("not open")
@@ -39,6 +44,7 @@ func isOpen() bool {
 	return true
 }
 
+// closeNox terminates the application and can be used for a fresh restart of the program
 func closeNox() error {
 	if !isOpen() {
 		return nil

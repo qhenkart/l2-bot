@@ -1,6 +1,7 @@
 package bot
 
 import (
+	"context"
 	"fmt"
 	"log"
 
@@ -15,6 +16,7 @@ const (
 	dungeon = sikuli + " -r ./l2bot/l2dungeon.sikuli"
 	weeklys = sikuli + " -r ./l2bot/l2dailys.sikuli"
 	sub     = sikuli + " -r ./l2bot/l2sub.sikuli"
+	quests  = sikuli + " -r ./l2bot/l2quests.sikuli"
 )
 
 var scripts = map[string]string{
@@ -22,6 +24,7 @@ var scripts = map[string]string{
 	"dungeon": dungeon,
 	"weeklys": weeklys,
 	"sub":     sub,
+	"quests":  quests,
 }
 
 var todos = map[string]bool{
@@ -29,51 +32,55 @@ var todos = map[string]bool{
 	"dungeons": false,
 }
 
-func runScript(command string, retry int) bool {
-	notifications.Send("starting " + command)
+// runScript runs a bash
+func runScript(ctx context.Context, command string, retry int) bool {
+	n := notifications.Context(ctx)
+	n.Send("starting " + command)
 	err := bash.RunProgram(command)
 	if err != nil {
 		log.Println("an error occured, retrying ", retry, err)
 		retry++
 		if retry > 3 {
-			notifications.Send(err.Error())
+			n.Send(err.Error())
 			return false
 		}
-		runScript(command, retry)
+		runScript(ctx, command, retry)
 	}
-	notifications.Send(command + " successful")
+	n.Send(command + " successful")
 	return true
 }
 
 // Run runs all of the available scripts
-func Run() {
-	startup()
+func Run(ctx context.Context) {
+	startup(ctx)
+	n := notifications.Context(ctx)
 
 	if !todos["weekly"] {
-		todos["weeklys"] = runScript(weeklys, 0)
+		todos["weeklys"] = runScript(ctx, weeklys, 0)
 	}
 	if !todos["dungeon"] {
-		todos["dungeon"] = runScript(dungeon, 0)
+		todos["dungeon"] = runScript(ctx, dungeon, 0)
 	}
 
-	runScript(grind, 0)
+	runScript(ctx, grind, 0)
 
-	notifications.Send(fmt.Sprintf("something happened. Rerunning scripts, todos: %+v", todos))
+	n.Send(fmt.Sprintf("something happened. Rerunning scripts, todos: %+v", todos))
 	if err := closeNox(); err != nil {
 		log.Println("unable to close nox ", err)
 	}
-	Run()
+	Run(ctx)
 }
 
 // Script runs an individual script
-func Script(script string) {
+func Script(ctx context.Context, script string) {
+	n := notifications.Context(ctx)
 	path, ok := scripts[script]
 	if !ok {
 		log.Printf("\n\nerror, unable to run script. \nOptions: %+v\n\n", scripts)
 	}
-	startup()
-	if success := runScript(path, 0); !success {
-		notifications.Send(fmt.Sprintf("something happened. Rerunning script: %s", path))
+	startup(ctx)
+	if success := runScript(ctx, path, 0); !success {
+		n.Send(fmt.Sprintf("something happened. Rerunning script: %s", path))
 		if err := closeNox(); err != nil {
 			log.Println("unable to close nox ", err)
 		}

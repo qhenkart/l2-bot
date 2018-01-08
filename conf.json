@@ -1,0 +1,5 @@
+{
+  "user": "",
+  "token": "",
+  "midnight": "what hour during the day is midnight on your server, this value should be 0-23 (0 being midnight, 23 being 11:00pm)"
+}
